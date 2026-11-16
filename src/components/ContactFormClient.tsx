@@ -42,27 +42,34 @@ export default function ContactFormClient({ messages }: Props) {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
 
     try {
-      const response = await fetch('/.netlify/functions/contact-form', {
+      // THIS IS THE NEW WEB3FORMS CODE
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: '92086fe3-6c9b-49e6-86e3-57134ca28b0b', // <--- PASTE THE KEY YOU GOT HERE
+          subject: 'New Contact Form Submission from Website',
+          ...formData
+        }),
       });
       
       const result = await response.json();
       
+      // Web3Forms returns a slightly different response format than your old API
       if (response.ok && result.success) {
         setSubmitSuccess(true);
         setFormData({ name: '', email: '', phone: '', destination: '', travelDate: '', message: '' });
       } else {
-        setSubmitError(result.error || messages.submitError);
+        setSubmitError(result.message || messages.submitError);
       }
     } catch (err) {
       console.error(err);

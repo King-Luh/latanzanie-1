@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 
 import { useTranslations } from 'next-intl';
 import ContactFormClient from '@/components/ContactFormClient';
+import Reviews from '@/components/Reviews';
 
 export default function ContactPage() {
   const t = useTranslations('ContactPage');
@@ -130,7 +131,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-
+<Reviews />
     </div>
   );
 }

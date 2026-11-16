@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import Reviews from '@/components/Reviews';
 
 export default function Home() {
   const t = useTranslations('HomePage');
@@ -329,6 +330,13 @@ export default function Home() {
         
 
       </div>
+            {/* ... other homepage content ... */}
+      
+      {/* ADD THIS HERE */}
+      <Reviews />
+      
+  );
+
     </div>
   )
 }
